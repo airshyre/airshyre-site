@@ -3,11 +3,15 @@ services:
   cms-service: # Port 2368
     build: ./ghostcms
     restart: always
+    ports:
+      - 3001:2368
     volumes:
       - ./ghost/content:/var/lib/ghost/content
   site-service: 
     build: ./site
     restart: always
+    ports:
+      - 3000:3000
     environment:
       - CMS_URL=http://cms-service:2368
     depends_on:
