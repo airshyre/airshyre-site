@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  cms-service: # Port 2368
+    build: ./ghostcms
+    restart: always
+    volumes:
+      - ./ghost/content:/var/lib/ghost/content
+  site-service: 
+    build: ./site
+    restart: always
+    environment:
+      - CMS_URL=http://cms-service:2368
+    depends_on:
+      - "cms-service"
+  proxy-service:
+    build: ./proxy  
+    restart: always
+    depends_on:
+      - "site-service"
+      - "cms-service"
+    ports:
+      - 80:80
+  
+  
+  
+ 
+ 
+
