@@ -13,7 +13,9 @@ services:
     ports:
       - 3000:3000
     environment:
-      - CMS_URL=http://cms-service:2368
+      - GHOST_API_URL=http://cms-service:2368
+      - GHOST_API_KEY=${GHOST_API_KEY}
+      - GHOST_API_VERSION=v3
     depends_on:
       - "cms-service"
   proxy-service:
