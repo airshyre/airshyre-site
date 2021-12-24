@@ -1,10 +1,10 @@
-import type { NextPage, InferGetServerSidePropsType, NextPageContext, GetServerSideProps } from 'next'
+import type { NextPage, InferGetServerSidePropsType} from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import GhostContentAPI from '@tryghost/content-api'
+import {ghostClient} from '../ghostCMSClient'
 
-type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
+type Props = InferGetServerSidePropsType<typeof getStaticProps>;
 const Home: NextPage<Props> = ({ posts }) => {
   return (
     <div className={styles.container}>
@@ -14,7 +14,7 @@ const Home: NextPage<Props> = ({ posts }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <p>Posts</p>
-      {posts.map((post, idx) => <p key={idx}>{post.updated_at}</p>)}
+      {posts.map((post, idx) => <p key={idx}>{post.title}</p>)}
       <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
@@ -72,12 +72,7 @@ const Home: NextPage<Props> = ({ posts }) => {
   )
 }
 
-export const getServerSideProps = async () => {
-  const ghostClient = new GhostContentAPI({ 
-    url: process.env.GHOST_API_URL as any, 
-    key: process.env.GHOST_API_KEY as any, 
-    version: process.env.GHOST_API_VERSION as any
-  });
+export const getStaticProps = async () => {
   const posts = await ghostClient.posts.browse();
   const pages = await ghostClient.pages.browse();
   return {
