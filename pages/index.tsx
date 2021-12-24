@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {ghostClient} from '../ghostCMSClient'
+import { MenuBar } from '../components/MenuBar'
 
 type Props = InferGetServerSidePropsType<typeof getStaticProps>;
 const Home: NextPage<Props> = ({ posts }) => {
@@ -14,6 +15,7 @@ const Home: NextPage<Props> = ({ posts }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <MenuBar/>
       {posts.map((post, idx) => <p key={idx}>{post.title}</p>)}
     </div>
   )
