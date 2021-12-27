@@ -7,7 +7,7 @@ import { FaYoutube, FaTwitter, FaInstagramSquare, FaSpotify} from 'react-icons/f
 import {ImSoundcloud2} from 'react-icons/im'
 import { IconContext } from 'react-icons'
 import { useMenu } from '../stores/useMenu'
-import AirshyreLogo from '../images/airshyre_logo.svg'
+import AirshyreLogo from '../images/airshyre_slate.svg'
 import { BsChevronDown } from 'react-icons/bs'
 import Link from 'next/link'
 import { ExternalLink } from '../components/ExternalLink'
@@ -29,38 +29,29 @@ const Home: NextPage<Props> = ({ posts, pages }) => {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@300;400&family=Josefin+Sans:wght@200;300;400;500;600;700&family=Quicksand:wght@700&display=swap" rel="stylesheet"/> 
       </Head>
-      <div className='relative h-screen w-full'>
-        <div className='z-0 bottom-0 absolute w-full h-screen pointer-events-none select-none'>
-          {/* <video
-            width="100%"
-            height="100%"
-            loop
-            muted
-            autoPlay
-            preload='auto'
-            crossOrigin='true'
-            className='bottom-0 opacity-20'
-            onLoad={() => setLoaded(true)}
-            src="/videos/pexels-yaroslav-shuraev-8516414.mp4"
-        /> */}
+      <div className="text-slate-800 relative h-screen w-full">
+        <div className='flex items-center justify-center h-screen w-screen'>
+          <div className='flex flex-col items-center justify-center'>
+            <div className='pointer-events-none select-none w-4/5 sm:w-auto'>
+              <Image src={AirshyreLogo} alt='Mountains' height={60} />
+            </div>
+            <div className='hidden sm:block flex flex-col space-y-4 items-center justify-center sm:space-y-0 sm:flex-row sm:space-x-8 mt-6'>
+              {pages.map(page => <button className='transition rounded hover:bg-gray-100 active:bg-gray-200 px-2 pt-1 pb-0 tracking-widest uppercase font-josefin font-semibold' key={page.title}>{page.title}</button>)}
+            </div>
+            <div className='flex items-center space-x-0 sm:space-x-4 mt-6'>
+              <IconContext.Provider value={{ className: "w-10 h-10 sm:h-12 sm:w-12 p-2 transition duration-100 hover:scale-125 cursor-pointer active:scale-100" }}>
+                <ExternalLink href="https://www.youtube.com/channel/UConvvkSmorbRNaz_w0BaSRQ"><FaYoutube className='hover:text-red-600 active:text-red-700'/></ExternalLink>
+                <ExternalLink href="https://www.twitter.com/airshyre"><FaTwitter className='hover:text-sky-500 active:text-sky-600'/></ExternalLink>
+                <ExternalLink href="https://www.spotify.com/airshyre"><FaSpotify className='hover:text-green-600 active:text-green-700 '/></ExternalLink>
+                <ExternalLink href="https://www.instagram.com/airshyre"><FaInstagramSquare className='hover:text-pink-500 active:text-pink-600'/></ExternalLink>
+                <ExternalLink href="https://www.soundcloud.com/airshyre"><ImSoundcloud2 className='w-11 h-11 hover:text-orange-600 active:text-orange-700'/></ExternalLink>
+              </IconContext.Provider>
+            </div>
+            <BsChevronDown className='w-8 h-8 mt-16 sm:mt-24'/>
+          </div>
         </div>
-        <div className='flex w-full flex-col items-center pt-20 sm:pt-48 px-8'>
-          <div className='pointer-events-none select-none w-60 sm:w-auto'>
-            <Image src={AirshyreLogo} alt='Mountains' height={60} />
-          </div>
-          <div className='flex flex-col space-y-4 items-center justify-center sm:space-y-0 sm:flex-row sm:space-x-8 mt-6'>
-            {pages.map(page => <button className='transition rounded hover:bg-gray-100 active:bg-gray-200 px-2 pt-1 pb-0 tracking-widest uppercase font-josefin font-semibold' key={page.title}>{page.title}</button>)}
-          </div>
-          <div className='flex items-center space-x-4 mt-6'>
-            <IconContext.Provider value={{ className: "w-12 h-12 p-2 transition duration-100 hover:scale-125 cursor-pointer active:scale-100" }}>
-              <ExternalLink href="https://www.youtube.com/channel/UConvvkSmorbRNaz_w0BaSRQ"><FaYoutube className='hover:text-red-600 active:text-red-700'/></ExternalLink>
-              <ExternalLink href="https://www.twitter.com/airshyre"><FaTwitter className='hover:text-sky-500 active:text-sky-600'/></ExternalLink>
-              <ExternalLink href="https://www.spotify.com/airshyre"><FaSpotify className='hover:text-green-600 active:text-green-700 '/></ExternalLink>
-              <ExternalLink href="https://www.instagram.com/airshyre"><FaInstagramSquare className='hover:text-pink-500 active:text-pink-600'/></ExternalLink>
-              <ExternalLink href="https://www.soundcloud.com/airshyre"><ImSoundcloud2 className='w-11 h-11 hover:text-orange-600 active:text-orange-700'/></ExternalLink>
-            </IconContext.Provider>
-          </div>
-          <BsChevronDown className='w-8 h-8 mt-32'/>
+        <div className='text-white w-screen h-48 bg-slate-900'>
+          ygjhgjhg
         </div>
       </div>
     </div>

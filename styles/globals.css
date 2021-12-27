@@ -7,12 +7,14 @@
 html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+
 }
 
 html,
 body {
   padding: 0;
   margin: 0;
+  @apply bg-slate-50
 }
 
 a {
