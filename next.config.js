@@ -7,7 +7,7 @@ module.exports = {
   // limit of 25 imageSizes values
   imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   // limit of 50 domains values
-  domains: ["images.pexels.com", "static.ghost.org", "ghost.airshyre.com"],
+  domains: ["images.pexels.com", "static.ghost.org", "airshyre.com"],
   // path prefix for Image Optimization API, useful with `loader`
   path: "/_next/image",
   // loader can be 'default', 'imgix', 'cloudinary', 'akamai', or 'custom'

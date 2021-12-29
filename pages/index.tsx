@@ -14,6 +14,7 @@ import { IconContext } from "react-icons"
 import AirshyreLogo from "../images/airshyre_slate.svg"
 import { BsChevronDown } from "react-icons/bs"
 import { ExternalLink } from "../components/ExternalLink"
+import { PostSummary } from "../components/PostSum"
 
 // const videoLink = 'blob:https://player.vimeo.com/a243e4a5-0774-4901-ac0f-08be36a91032';
 type Props = InferGetServerSidePropsType<typeof getStaticProps>
@@ -31,11 +32,11 @@ const Home: NextPage<Props> = ({ posts }) => {
      crossOrigin="true"
     />
     <link
-     href="https://fonts.googleapis.com/css2?family=Chivo:wght@300;400&family=Josefin+Sans:wght@200;300;400;500;600;700&family=Quicksand:wght@700&display=swap"
+     href="https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700;900&family=Josefin+Sans:wght@200;300;400;500;600;700&family=Quicksand:wght@700&display=swap"
      rel="stylesheet"
     />
    </Head>
-   <div className="text-slate-800 relative h-screen w-full">
+   <div className="text-slate-800 relative h-screen w-full font-chivo">
     <div className="flex items-center justify-center h-screen w-screen">
      <div className="flex flex-col items-center justify-center">
       <div className="pointer-events-none select-none w-4/5 sm:w-auto">
@@ -69,23 +70,11 @@ const Home: NextPage<Props> = ({ posts }) => {
       <BsChevronDown className="w-8 h-8 mt-16 sm:mt-24" />
      </div>
     </div>
-    <div className="text-slate-700 w-screen h-48 bg-slate-100 border-t border-slate-300">
+    <div className="gap-8 p-8 text-slate-900 w-screen border-t border-slate-300 grid grid-cols-2">
      {posts.map((post) => {
       return (
-       <div>
-        {post.feature_image ? (
-         <div className="rounded overflow-hidden aspect-video w-full">
-          <Image
-           objectPosition="50% -90%"
-           layout="responsive"
-           width={100}
-           height={100}
-           src={post.feature_image}
-           objectFit="cover"
-          />
-         </div>
-        ) : null}
-        <span className="text-2xl font-medium">{post.title}</span>
+       <div key={post.id}>
+        <PostSummary key={post.id} {...post} />
        </div>
       )
      })}
@@ -107,6 +96,8 @@ export const getStaticProps = async () => {
   }
   return unsortedPages.sort((a, b) => getIndex(a) - getIndex(b))
  }
+
+ console.log(posts)
 
  return {
   props: {
