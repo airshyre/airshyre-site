@@ -2,26 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 html {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-
+ -moz-osx-font-smoothing: grayscale;
+ -webkit-font-smoothing: antialiased;
 }
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  @apply bg-slate-50
+ padding: 0;
+ margin: 0;
+ @apply bg-slate-50;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+ color: inherit;
+ text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+ box-sizing: border-box;
 }
