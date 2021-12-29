@@ -1,12 +1,16 @@
 import { PostOrPage } from "@tryghost/content-api"
 import { DateTime } from "luxon"
 import Image from "next/image"
+import { replaceURL } from "../utils"
 
 export const PostSummary = (post: PostOrPage) => {
  return (
   <div key={post.id}>
    {post.feature_image ? (
-    <a className="rounded overflow-hidden aspect-video w-full" href={post.url}>
+    <a
+     className="rounded overflow-hidden aspect-video w-full"
+     href={`/posts/${post.id}`}
+    >
      <div className="hover:brightness-125">
       <Image
        width={320}
