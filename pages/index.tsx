@@ -57,7 +57,7 @@ const Home: NextPage<Props> = ({ posts }) => {
     ) : null}
    </AnimatePresence>
 
-   <FlyoutMenu items={[{ link: "/", title: "item1" }]} />
+   {isOpen ? <FlyoutMenu items={[{ link: "/", title: "item1" }]} /> : null}
 
    <div className="absolute w-screen h-screen z-0">
     <video

@@ -14,6 +14,7 @@ import { ExternalLink } from "../components/ExternalLink"
 import React from "react"
 import { BurgerButton } from "./BurgerButton"
 import { useMenu } from "../stores/useMenu"
+import Link from "next/link"
 
 export const PageHeader = () => {
  const { isOpen, toggleIsOpen } = useMenu()
@@ -24,9 +25,11 @@ export const PageHeader = () => {
      className="px-4 flex justify-between items-center"
      style={{ maxWidth: "56rem", width: "56rem" }}
     >
-     <div className="pointer-events-none select-none sm:w-auto mt-2">
-      <Image src={AirshyreLogo} alt="Airshyre Logo" height={20} width={170} />
-     </div>
+     <Link href="/">
+      <div className="cursor-pointer select-none sm:w-auto mt-2">
+       <Image src={AirshyreLogo} alt="Airshyre Logo" height={20} width={170} />
+      </div>
+     </Link>
      <div className="block sm:hidden">
       <BurgerButton isOpen={isOpen} onClick={toggleIsOpen} />
      </div>

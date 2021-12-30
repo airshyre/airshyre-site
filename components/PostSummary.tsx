@@ -4,13 +4,13 @@ import Image from "next/image"
 
 export const PostSummary = (post: PostOrPage) => {
  return (
-  <div key={post.id}>
+  <div className="group" key={post.id}>
    {post.feature_image ? (
     <a
      className="rounded overflow-hidden aspect-video w-full"
      href={`/posts/${post.id}`}
     >
-     <div className="hover:brightness-125 transition active:brightness-150">
+     <div className="group-hover:brightness-125 transition active:brightness-150">
       <Image
        width={320}
        height={320 / (16 / 9)}
@@ -21,6 +21,12 @@ export const PostSummary = (post: PostOrPage) => {
     </a>
    ) : null}
    <div>
+    <a href={`/posts/${post.id}`}>
+     <div className="transition text-2xl mt-2 font-semibold group-hover:text-blue-600 group-hover:cursor-pointer group-hover:underline active:text-blue-800">
+      {post.title}
+     </div>
+    </a>
+    <div className="mt-4 text-slate-500 font-medium">{post.custom_excerpt}</div>
     <div className="text-xs mt-4 text-slate-500 font-medium">
      Released on{" "}
      <span className="text-slate-900">
@@ -29,12 +35,6 @@ export const PostSummary = (post: PostOrPage) => {
      by{" "}
      <span className="text-slate-900">{post.authors?.[0] || "Airshyre"}</span>
     </div>
-    <a href={`/posts/${post.id}`}>
-     <div className="text-2xl mt-2 font-semibold hover:text-blue-600 hover:cursor-pointer hover:underline active:text-blue-800">
-      {post.title}
-     </div>
-    </a>
-    <div className="mt-4 text-slate-500 font-medium">{post.custom_excerpt}</div>
    </div>
   </div>
  )
