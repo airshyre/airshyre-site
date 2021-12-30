@@ -6,7 +6,6 @@ module.exports = {
    quicksand: ["Quicksand"],
    josefin: ["Josefin Sans"],
   },
-  extend: {},
  },
- plugins: [],
+ plugins: [require("@tailwindcss/typography")],
 }
