@@ -8,26 +8,33 @@ import {
  FaSpotify,
 } from "react-icons/fa"
 import { ImSoundcloud2 } from "react-icons/im"
+import { BiMenu } from "react-icons/bi"
 
 import { ExternalLink } from "../components/ExternalLink"
 import React from "react"
+import { BurgerButton } from "./BurgerButton"
+import { useMenu } from "../stores/useMenu"
 
-export const PageHeader = ({ children }: { children?: React.ReactNode }) => {
+export const PageHeader = () => {
+ const { isOpen, toggleIsOpen } = useMenu()
  return (
   <div>
-   <div className="z-50 text-black h-16 bg-slate-50 border-b w-full flex items-center justify-center">
+   <div className="fixed z-50 text-black h-16 bg-slate-50 border-b w-full flex items-center justify-center">
     <div
-     className="flex justify-between items-center"
+     className="px-4 flex justify-between items-center"
      style={{ maxWidth: "56rem", width: "56rem" }}
     >
      <div className="pointer-events-none select-none sm:w-auto mt-2">
       <Image src={AirshyreLogo} alt="Airshyre Logo" height={20} width={170} />
      </div>
-     <div className="flex items-center space-x-0 sm:space-x-4">
+     <div className="block sm:hidden">
+      <BurgerButton isOpen={isOpen} onClick={toggleIsOpen} />
+     </div>
+     <div className="items-center hidden sm:flex sm:space-x-3 mr-1">
       <IconContext.Provider
        value={{
         className:
-         "w-4 h-4 sm:h-6 sm:w-6 transition duration-100 hover:scale-125 cursor-pointer active:scale-100",
+         "w-6 h-6 sm:h-6 sm:w-6 transition duration-100 hover:scale-125 cursor-pointer active:scale-100",
        }}
       >
        <ExternalLink href="https://www.youtube.com/channel/UConvvkSmorbRNaz_w0BaSRQ">
@@ -43,13 +50,13 @@ export const PageHeader = ({ children }: { children?: React.ReactNode }) => {
         <FaInstagramSquare className="hover:text-pink-500 active:text-pink-600" />
        </ExternalLink>
        <ExternalLink href="https://www.soundcloud.com/airshyre">
-        <ImSoundcloud2 className="w-4 h-4 sm:w-6 sm:h-6 hover:text-orange-600 active:text-orange-700" />
+        <ImSoundcloud2 className="w-5 h-5 sm:w-6 sm:h-6 hover:text-orange-600 active:text-orange-700" />
        </ExternalLink>
       </IconContext.Provider>
      </div>
     </div>
    </div>
-   {children}
+   <div className="h-16 w-full"></div>
   </div>
  )
 }

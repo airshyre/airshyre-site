@@ -20,6 +20,8 @@ import { useIsInView } from "../hooks/useIsInView"
 import { PageHeader } from "../components/PageHeader"
 import { Footer } from "../components/Footer"
 import { AnimatePresence, motion } from "framer-motion"
+import { FlyoutMenu } from "../components/FlyoutMenu"
+import { useMenu } from "../stores/useMenu"
 
 const videoLink =
  "blob:https://player.vimeo.com/a243e4a5-0774-4901-ac0f-08be36a91032"
@@ -27,9 +29,9 @@ type Props = InferGetServerSidePropsType<typeof getStaticProps>
 const Home: NextPage<Props> = ({ posts }) => {
  const { ref, scrollToElement } = useScroll()
  const { ref: ref2, isInView } = useIsInView()
- console.log(isInView)
+ const { isOpen, toggleIsOpen } = useMenu()
  return (
-  <div>
+  <div className="relative">
    <Head>
     <title>Airshyre — Home</title>
     <meta name="description" content="Airshyre's music website." />
@@ -47,15 +49,16 @@ const Home: NextPage<Props> = ({ posts }) => {
    </Head>
    <AnimatePresence>
     {isInView ? (
-     <div className="fixed z-50 w-full" key="uiuiuiu">
+     <div className="fixed z-50 w-full">
       <motion.div initial={{ y: -100 }} animate={{ y: 0 }} exit={{ y: -100 }}>
-       <PageHeader>
-        <div className="h-16 w-full"></div>
-       </PageHeader>
+       <PageHeader />
       </motion.div>
      </div>
     ) : null}
    </AnimatePresence>
+
+   <FlyoutMenu items={[{ link: "/", title: "item1" }]} />
+
    <div className="absolute w-screen h-screen z-0">
     <video
      className="w-full h-full object-cover brightness-50"
@@ -75,7 +78,13 @@ const Home: NextPage<Props> = ({ posts }) => {
        className="pointer-events-none select-none w-4/5 sm:w-auto"
        ref={ref2}
       >
-       <Image src={AirshyreLogo} alt="Airshyre Logo" height={60} />
+       <Image
+        src={AirshyreLogo}
+        alt="Airshyre Logo"
+        height={60}
+        priority
+        loading="eager"
+       />
       </div>
       <div className="flex items-center space-x-0 sm:space-x-4 mt-6">
        <IconContext.Provider
@@ -112,7 +121,7 @@ const Home: NextPage<Props> = ({ posts }) => {
     <div className="w-full border-t border-slate-300"></div>
     <div
      ref={ref}
-     className="gap-3 p-8 py-24 text-slate-900 w-screen grid grid-cols-3 mx-auto w-2/3"
+     className="gap-3 p-4 sm:p-8 py-24 text-slate-900 grid grid-cols-1 lg:grid-cols-3 mx-auto w-2/3"
     >
      {posts.map((post) => {
       return (

@@ -29,7 +29,11 @@ export const PostSummary = (post: PostOrPage) => {
      by{" "}
      <span className="text-slate-900">{post.authors?.[0] || "Airshyre"}</span>
     </div>
-    <div className="text-2xl mt-2 font-semibold">{post.title}</div>
+    <a href={`/posts/${post.id}`}>
+     <div className="text-2xl mt-2 font-semibold hover:text-blue-600 hover:cursor-pointer hover:underline active:text-blue-800">
+      {post.title}
+     </div>
+    </a>
     <div className="mt-4 text-slate-500 font-medium">{post.custom_excerpt}</div>
    </div>
   </div>

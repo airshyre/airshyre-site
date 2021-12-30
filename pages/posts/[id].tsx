@@ -12,6 +12,7 @@ import { DateTime } from "luxon"
 import Image from "next/image"
 import { PostContent } from "../../components/PostContent"
 import { PageHeader } from "../../components/PageHeader"
+import { Footer } from "../../components/Footer"
 
 type Props = InferGetServerSidePropsType<typeof getStaticProps>
 
@@ -35,7 +36,7 @@ const Post: NextPage<Props> = ({ post }) => {
    </Head>
    <PageHeader />
    <div className="flex flex-col items-center w-full">
-    <div className="pt-16 pb-24 px-4 sm:px-16 mx-auto">
+    <div className="pt-8 sm:pt-16 pb-24 px-4 sm:px-16 mx-auto">
      <Link href="/">
       <div className="flex items-center text-blue-600 hover:underline cursor-pointer hover:text-blue-700 active:text-blue-800">
        <BsArrowLeft className="mr-2" />
@@ -59,6 +60,7 @@ const Post: NextPage<Props> = ({ post }) => {
      <div>{post.slug}</div>
     </div>
    </div>
+   <Footer />
   </div>
  )
 }

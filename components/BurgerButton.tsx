@@ -1,5 +1,5 @@
 import { ComponentProps } from "react"
-import { MdOutlineMenu, MdArrowBack } from "react-icons/md"
+import { MdOutlineMenu, MdClose } from "react-icons/md"
 
 type Props = {
  isOpen: boolean
@@ -13,9 +13,9 @@ export const BurgerButton = ({ isOpen, onClick }: Props) => {
    className="rounded w-8 h-8 flex items-center justify-center hover:bg-gray-100"
   >
    {isOpen ? (
-    <MdArrowBack className="h-6 w-6" />
+    <MdClose className="h-6 w-6" />
    ) : (
-    <MdOutlineMenu className="h-8 w-8" />
+    <MdOutlineMenu className="h-7 w-7" />
    )}
   </button>
  )

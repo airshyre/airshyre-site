@@ -12,7 +12,7 @@ import { ExternalLink } from "./ExternalLink"
 
 export const Footer = () => {
  return (
-  <footer className="bg-slate-100 text-slate-700 border-t border-slate-300 w-full flex justify-center items-center pt-8 pb-16">
+  <footer className="text-slate-800 border-t border-slate-300 w-full flex justify-center items-center pt-8 pb-16">
    <div
     className="flex flex-col items-center"
     style={{ maxWidth: "39rem", width: "39rem" }}
