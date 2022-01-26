@@ -12,7 +12,7 @@ import { ExternalLink } from "./ExternalLink"
 
 export const Footer = () => {
  return (
-  <footer className="text-slate-800 border-t border-slate-300 w-full flex justify-center items-center pt-8 pb-16">
+  <footer className="text-gray-800 border-t border-gray-300 w-full flex justify-center items-center pt-8 pb-16">
    <div
     className="flex flex-col items-center"
     style={{ maxWidth: "39rem", width: "39rem" }}
@@ -20,11 +20,11 @@ export const Footer = () => {
     <div className="pointer-events-none select-none sm:w-auto mt-2 mb-4">
      <Image src={AirshyreLogo} alt="Airshyre Logo" height={20} width={170} />
     </div>
-    <div className="flex items-center space-x-0 sm:space-x-4">
+    <div className="flex items-center space-x-4">
      <IconContext.Provider
       value={{
        className:
-        "w-4 h-4 sm:h-6 sm:w-6 transition duration-100 hover:scale-125 cursor-pointer active:scale-100",
+        "h-6 w-6 transition duration-100 hover:scale-125 cursor-pointer active:scale-100",
       }}
      >
       <ExternalLink href="https://www.youtube.com/channel/UConvvkSmorbRNaz_w0BaSRQ">
@@ -40,7 +40,7 @@ export const Footer = () => {
        <FaInstagramSquare className="hover:text-pink-500 active:text-pink-600" />
       </ExternalLink>
       <ExternalLink href="https://www.soundcloud.com/airshyre">
-       <ImSoundcloud2 className="w-4 h-4 sm:w-6 sm:h-6 hover:text-orange-600 active:text-orange-700" />
+       <ImSoundcloud2 className="w-6 h-6 hover:text-orange-600 active:text-orange-700" />
       </ExternalLink>
      </IconContext.Provider>
     </div>

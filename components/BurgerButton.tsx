@@ -10,7 +10,7 @@ export const BurgerButton = ({ isOpen, onClick }: Props) => {
  return (
   <button
    onClick={onClick}
-   className="rounded w-8 h-8 flex items-center justify-center hover:bg-gray-100"
+   className="rounded w-8 h-8 flex items-center justify-center hover:bg-gray-50/25"
   >
    {isOpen ? (
     <MdClose className="h-6 w-6" />

@@ -26,14 +26,13 @@ export const PostSummary = (post: PostOrPage) => {
       {post.title}
      </div>
     </a>
-    <div className="mt-4 text-slate-500 font-medium">{post.custom_excerpt}</div>
-    <div className="text-xs mt-4 text-slate-500 font-medium">
+    <div className="mt-4 text-gray-500 font-medium">{post.custom_excerpt}</div>
+    <div className="text-xs mt-4 text-gray-500 font-medium">
      Released on{" "}
-     <span className="text-slate-900">
+     <span className="text-gray-900">
       {DateTime.fromISO(post.published_at || "").toFormat("MMMM dd, yyyy")}
      </span>{" "}
-     by{" "}
-     <span className="text-slate-900">{post.authors?.[0] || "Airshyre"}</span>
+     by <span className="text-gray-900">{post.authors?.[0] || "Airshyre"}</span>
     </div>
    </div>
   </div>

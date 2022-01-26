@@ -17,11 +17,12 @@ import { ExternalLink } from "../components/ExternalLink"
 import { PostSummary } from "../components/PostSummary"
 import { useScroll } from "../hooks/useScroll"
 import { useIsInView } from "../hooks/useIsInView"
-import { PageHeader } from "../components/PageHeader"
+import { DynamicPageHeader, PageHeader } from "../components/PageHeader"
 import { Footer } from "../components/Footer"
 import { AnimatePresence, motion } from "framer-motion"
 import { FlyoutMenu } from "../components/FlyoutMenu"
 import { useMenu } from "../stores/useMenu"
+import { useScrollHeight } from "../hooks/useScrollHeight"
 
 const videoLink =
  "blob:https://player.vimeo.com/a243e4a5-0774-4901-ac0f-08be36a91032"
@@ -30,6 +31,7 @@ const Home: NextPage<Props> = ({ posts }) => {
  const { ref, scrollToElement } = useScroll()
  const { ref: ref2, isInView } = useIsInView()
  const { isOpen, toggleIsOpen } = useMenu()
+
  return (
   <div className="relative">
    <Head>
@@ -47,20 +49,18 @@ const Home: NextPage<Props> = ({ posts }) => {
      rel="stylesheet"
     />
    </Head>
-   <AnimatePresence>
-    {isInView ? (
-     <div className="fixed z-50 w-full">
-      <motion.div initial={{ y: -100 }} animate={{ y: 0 }} exit={{ y: -100 }}>
-       <PageHeader />
-      </motion.div>
-     </div>
-    ) : null}
-   </AnimatePresence>
+   <DynamicPageHeader />
 
-   {isOpen ? <FlyoutMenu items={[{ link: "/", title: "item1" }]} /> : null}
+   {/* {isOpen ? <FlyoutMenu items={[{ link: "/", title: "item1" }]} /> : null} */}
 
-   <div className="absolute w-screen h-screen z-0">
-    <video
+   <div className="absolute w-screen h-4/5 z-0 brightness-50">
+    <Image
+     src="https://images.pexels.com/photos/65911/winter-nature-season-trees-65911.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+     objectFit="cover"
+     layout="fill"
+     objectPosition="50% 40%"
+    />
+    {/* <video
      className="w-full h-full object-cover brightness-50"
      src="/videos/video.mp4"
      autoPlay
@@ -68,12 +68,12 @@ const Home: NextPage<Props> = ({ posts }) => {
      muted
      height="100%"
      width="100%"
-    ></video>
+    ></video> */}
    </div>
 
-   <div className="text-slate-900 relative h-screen w-full">
-    <div className="flex items-center justify-center h-screen w-screen">
-     <div className="text-slate-50 flex flex-col items-center justify-center">
+   <div className="text-gray-900 relative h-screen w-full">
+    <div className="flex items-center justify-center h-4/5 w-screen">
+     <div className="text-gray-50 flex flex-col items-center justify-center">
       <div
        className="pointer-events-none select-none w-4/5 sm:w-auto"
        ref={ref2}
@@ -86,42 +86,19 @@ const Home: NextPage<Props> = ({ posts }) => {
         loading="eager"
        />
       </div>
-      <div className="flex items-center space-x-0 sm:space-x-4 mt-6">
-       <IconContext.Provider
-        value={{
-         className:
-          "w-10 h-10 sm:h-12 sm:w-12 p-2 transition duration-100 hover:scale-125 cursor-pointer active:scale-100",
-        }}
-       >
-        <ExternalLink href="https://www.youtube.com/channel/UConvvkSmorbRNaz_w0BaSRQ">
-         <FaYoutube className="hover:text-red-600 active:text-red-700" />
-        </ExternalLink>
-        <ExternalLink href="https://www.twitter.com/airshyre">
-         <FaTwitter className="hover:text-sky-500 active:text-sky-600" />
-        </ExternalLink>
-        <ExternalLink href="https://www.spotify.com/airshyre">
-         <FaSpotify className="hover:text-green-600 active:text-green-700 " />
-        </ExternalLink>
-        <ExternalLink href="https://www.instagram.com/airshyre">
-         <FaInstagramSquare className="hover:text-pink-500 active:text-pink-600" />
-        </ExternalLink>
-        <ExternalLink href="https://www.soundcloud.com/airshyre">
-         <ImSoundcloud2 className="w-9 h-9 sm:w-11 sm:h-11 hover:text-orange-600 active:text-orange-700" />
-        </ExternalLink>
-       </IconContext.Provider>
-      </div>
-      <button
+
+      {/* <button
        onClick={scrollToElement}
-       className="transition mt-8 sm:mt-16 rounded hover:bg-slate-50/25  w-14 h-14 active:bg-slate-50/75 flex items-center justify-center"
+       className="transition mt-8 sm:mt-16 rounded hover:bg-gray-50/25  w-14 h-14 active:bg-gray-50/75 flex items-center justify-center"
       >
        <BsChevronDown className="w-8 h-8" />
-      </button>
+      </button> */}
      </div>
     </div>
-    <div className="w-full border-t border-slate-300"></div>
+    <div className="w-full border-t border-gray-300"></div>
     <div
      ref={ref}
-     className="gap-3 p-4 sm:p-8 py-24 text-slate-900 grid grid-cols-1 lg:grid-cols-3 mx-auto w-2/3"
+     className="gap-3 sm:px-4 sm:py-16 py-8 text-gray-900 grid grid-cols-1 lg:grid-cols-3 sm:mx-auto mx-4 sm:mx-0 sm:w-2/3"
     >
      {posts.map((post) => {
       return (

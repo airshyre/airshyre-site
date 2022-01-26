@@ -1,65 +1,149 @@
 import Image from "next/image"
-import AirshyreLogo from "../images/airshyre_slate.svg"
-import { IconContext } from "react-icons"
-import {
- FaYoutube,
- FaTwitter,
- FaInstagramSquare,
- FaSpotify,
-} from "react-icons/fa"
-import { ImSoundcloud2 } from "react-icons/im"
-import { BiMenu } from "react-icons/bi"
+import AirshyreLogoWhite from "../images/airshyre_white.svg"
+import { AiOutlineLine } from "react-icons/ai"
 
-import { ExternalLink } from "../components/ExternalLink"
 import React from "react"
-import { BurgerButton } from "./BurgerButton"
-import { useMenu } from "../stores/useMenu"
+// import { BurgerButton } from "./BurgerButton"
+// import { useMenu } from "../stores/useMenu"
 import Link from "next/link"
+import { SocialIcons } from "./SocialIcons"
+import { useScrollHeight } from "../hooks/useScrollHeight"
+import { BurgerButton } from "./BurgerButton"
+import { capitalize } from "../utils/capitalize"
 
-export const PageHeader = () => {
- const { isOpen, toggleIsOpen } = useMenu()
+const pageLinks = ["bio", "contact", "music", "videos"].map((pageTitle) => {
  return (
-  <div>
-   <div className="fixed z-50 text-black h-16 bg-slate-50 border-b w-full flex items-center justify-center">
-    <div
-     className="px-4 flex justify-between items-center"
-     style={{ maxWidth: "56rem", width: "56rem" }}
-    >
+  <Link href={"/" + pageTitle}>
+   <span className="hover:text-gray-200 hover:cursor-pointer">
+    {capitalize(pageTitle)}
+   </span>
+  </Link>
+ )
+})
+
+export const DynamicPageHeader = () => {
+ const { isAtScrollHeight } = useScrollHeight(100)
+ const ref = React.useRef<HTMLDivElement>(null)
+ React.useEffect(() => {
+  if (ref.current === null) return
+  ref.current.style.height = `6rem`
+  document.addEventListener("scroll", () => {
+   if (ref.current === null) return
+   if (window.scrollY < 100) {
+    ref.current.style.height = `${6 - (window.scrollY / 100) * 2}rem`
+    return
+   }
+   ref.current.style.height = "4"
+  })
+ })
+
+ return (
+  <div
+   className={`duration-150 -mt-6 sm:mt-0 px-4 sm:px-8 h-8 sm:h-16 flex justify-center items-end w-full fixed z-50 ${
+    isAtScrollHeight
+     ? "bg-white text-gray-900 border-b border-gray-300"
+     : "bg-transparent text-white"
+   }`}
+   ref={ref}
+   style={{ height: `${ref.current}` }}
+  >
+   <div
+    className={`w-full flex items-center justify-between h-16`}
+    style={{ maxWidth: "56rem", width: "56rem" }}
+   >
+    <div>
      <Link href="/">
-      <div className="cursor-pointer select-none sm:w-auto mt-2">
-       <Image src={AirshyreLogo} alt="Airshyre Logo" height={20} width={170} />
+      <div
+       className={`transition cursor-pointer select-none sm:w-auto mt-2 ${
+        isAtScrollHeight ? "invert" : ""
+       }`}
+      >
+       <Image
+        src={AirshyreLogoWhite}
+        alt="Airshyre Logo"
+        height={20}
+        width={170}
+       />
       </div>
      </Link>
-     <div className="block sm:hidden">
-      <BurgerButton isOpen={isOpen} onClick={toggleIsOpen} />
-     </div>
-     <div className="items-center hidden sm:flex sm:space-x-3 mr-1">
-      <IconContext.Provider
-       value={{
-        className:
-         "w-6 h-6 sm:h-6 sm:w-6 transition duration-100 hover:scale-125 cursor-pointer active:scale-100",
-       }}
-      >
-       <ExternalLink href="https://www.youtube.com/channel/UConvvkSmorbRNaz_w0BaSRQ">
-        <FaYoutube className="hover:text-red-600 active:text-red-700" />
-       </ExternalLink>
-       <ExternalLink href="https://www.twitter.com/airshyre">
-        <FaTwitter className="hover:text-sky-500 active:text-sky-600" />
-       </ExternalLink>
-       <ExternalLink href="https://www.spotify.com/airshyre">
-        <FaSpotify className="hover:text-green-600 active:text-green-700 " />
-       </ExternalLink>
-       <ExternalLink href="https://www.instagram.com/airshyre">
-        <FaInstagramSquare className="hover:text-pink-500 active:text-pink-600" />
-       </ExternalLink>
-       <ExternalLink href="https://www.soundcloud.com/airshyre">
-        <ImSoundcloud2 className="w-5 h-5 sm:w-6 sm:h-6 hover:text-orange-600 active:text-orange-700" />
-       </ExternalLink>
-      </IconContext.Provider>
-     </div>
+    </div>
+
+    <div className="block md:hidden">
+     <BurgerButton isOpen={false} onClick={() => {}} />
+    </div>
+    <div className="md:flex hidden">
+     <div className="flex items-center space-x-6">{pageLinks}</div>
+     <AiOutlineLine className="transform rotate-90 w-8 h-8 mx-4 opacity-50" />
+     <SocialIcons />
     </div>
    </div>
-   <div className="h-16 w-full"></div>
   </div>
  )
 }
+
+export const PageHeader = () => {
+ return (
+  <div
+   className={`duration-150 h-12 sm:h-16 px-4 md:px-0 flex justify-center items-end w-full bg-white text-gray-900 border-b border-gray-300`}
+  >
+   <div
+    className={`w-full flex items-center justify-between h-12`}
+    style={{ maxWidth: "56rem", width: "56rem" }}
+   >
+    <div>
+     <Link href="/">
+      <div
+       className={`invert transition cursor-pointer select-none sm:w-auto mt-2`}
+      >
+       <Image
+        src={AirshyreLogoWhite}
+        alt="Airshyre Logo"
+        height={20}
+        width={170}
+       />
+      </div>
+     </Link>
+    </div>
+
+    <div className="block md:hidden">
+     <BurgerButton isOpen={false} onClick={() => {}} />
+    </div>
+    <div className="md:flex hidden">
+     <div className="flex items-center space-x-6">{pageLinks}</div>
+     <AiOutlineLine className="transform rotate-90 w-8 h-8 mx-4 opacity-50" />
+     <SocialIcons />
+    </div>
+   </div>
+  </div>
+ )
+}
+
+{
+ /* <div className="block sm:hidden">
+      <BurgerButton isOpen={isOpen} onClick={toggleIsOpen} />
+     </div> */
+}
+{
+ /* */
+}
+
+// export const getStaticProps = async () => {
+//  const pages = await ghostClient.pages.browse({ include: ["tags", "authors"] })
+
+//  const sortPagesUsingIndexTag = (unsortedPages: typeof pages) => {
+//   const getIndex = (page: typeof pages[0]) => {
+//    const indexTag = page.tags?.find((tag) => tag.name?.includes("#index_"))
+//    const index = indexTag?.name?.split("_")[1]
+//    return Number(index)
+//   }
+//   return unsortedPages.sort((a, b) => getIndex(a) - getIndex(b))
+//  }
+
+//  return {
+//   props: {
+//    pages: sortPagesUsingIndexTag(pages),
+//   },
+//  }
+// }
+
+export default PageHeader
