@@ -7,7 +7,7 @@ import { SocialIcons } from "./SocialIcons"
 import { useScrollHeight } from "../hooks/useScrollHeight"
 import { BurgerButton } from "./BurgerButton"
 import {
- createNumberTruncator,
+ createNumberClamper,
  createNumberRangeTransform,
  capitalize,
 } from "../utils/index"
@@ -32,12 +32,12 @@ export const PageHeader = (props: Props = {}) => {
  const headerMargin = F.function.pipe(
   scrollHeight,
   createNumberRangeTransform([0, 100], [1.5, 0]),
-  createNumberTruncator([0, 1.5])
+  createNumberClamper([0, 1.5])
  )
  const scrollCompletionRatio = F.function.pipe(
   scrollHeight,
   createNumberRangeTransform([0, 100], [0, 1]),
-  createNumberTruncator([0, 1])
+  createNumberClamper([0, 1])
  )
 
  return (
