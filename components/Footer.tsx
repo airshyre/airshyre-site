@@ -7,12 +7,12 @@ import {
  FaInstagramSquare,
  FaSpotify,
 } from "react-icons/fa"
-import { ImSoundcloud2 } from "react-icons/im"
+import { ImSoundcloud2, ImHeart } from "react-icons/im"
 import { ExternalLink } from "./ExternalLink"
 
 export const Footer = () => {
  return (
-  <footer className="text-gray-800 border-t border-gray-300 w-full flex justify-center items-center pt-8 pb-16">
+  <footer className="text-gray-800 border-t border-gray-300 w-full flex justify-center items-center pt-9 pb-12">
    <div
     className="flex flex-col items-center"
     style={{ maxWidth: "39rem", width: "39rem" }}
@@ -44,6 +44,11 @@ export const Footer = () => {
       </ExternalLink>
      </IconContext.Provider>
     </div>
+    <p className="mt-6 text-gray-500 mx-auto text-xs">
+     Designed and Created With{" "}
+     <ImHeart className="inline-block mx-1 mb-0.5 w-3 h-3 text-red-600" /> By
+     Airshyre
+    </p>
    </div>
   </footer>
  )

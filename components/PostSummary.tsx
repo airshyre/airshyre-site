@@ -16,6 +16,7 @@ export const PostSummary = (post: PostOrPage) => {
        height={320 / (16 / 9)}
        src={post.feature_image}
        objectFit="cover"
+       className="rounded"
       />
      </div>
     </a>

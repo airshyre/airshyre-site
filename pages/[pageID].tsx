@@ -73,7 +73,6 @@ export const getStaticProps = async ({
  const id = params?.pageID
  if (!id) throw new Error("Page Id is undefined!")
  const page = await ghostClient.pages.read({ id })
- console.log(page)
  return {
   props: {
    page,
