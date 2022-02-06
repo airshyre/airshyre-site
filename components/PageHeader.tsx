@@ -13,10 +13,11 @@ import {
 } from "../utils/index"
 import * as F from "fp-ts"
 import { darken, rgba } from "polished"
+import { useMenu } from "../stores/useMenu"
 
 const pageLinks = ["bio", "contact", "music", "videos"].map((pageTitle) => {
  return (
-  <Link href={"/" + pageTitle}>
+  <Link href={"/" + pageTitle} passHref={true} key={pageTitle}>
    <span className="hover:text-gray-200 inherit hover:cursor-pointer">
     {capitalize(pageTitle)}
    </span>
@@ -24,27 +25,29 @@ const pageLinks = ["bio", "contact", "music", "videos"].map((pageTitle) => {
  )
 })
 
-type Props = { isDynamic?: boolean }
-
-export const PageHeader = (props: Props = {}) => {
- const { isDynamic = false } = props
+export const PageHeader = ({
+ isDynamic = false,
+}: { isDynamic?: boolean } = {}) => {
+ const toggleMenuIsOpen = useMenu((s) => s.toggleIsOpen)
  const scrollHeight = useScrollHeight()
- const headerMargin = F.function.pipe(
-  scrollHeight,
-  createNumberRangeTransform([0, 100], [1.5, 0]),
-  createNumberClamper([0, 1.5])
- )
  const scrollCompletionRatio = F.function.pipe(
   scrollHeight,
   createNumberRangeTransform([0, 100], [0, 1]),
   createNumberClamper([0, 1])
+ )
+ const isScrollComplete = scrollCompletionRatio === 1
+ const headerMargin = F.function.pipe(
+  scrollHeight,
+  createNumberRangeTransform([0, 50], [1.5, 0]),
+  (val: number) => Math.exp(val),
+  createNumberClamper([0, 1.5])
  )
 
  return (
   <div>
    <div
     className={"duration-150 px-4 sm:mt-0 sm:px-8 flex lg:mb-16 justify-center items-end w-full fixed z-50 ".concat(
-     (isDynamic && scrollCompletionRatio === 1) || isDynamic === false
+     (isDynamic && isScrollComplete) || !isDynamic
       ? "border-b border-gray-200"
       : "",
      isDynamic ? "-mt-6" : ""
@@ -64,12 +67,10 @@ export const PageHeader = (props: Props = {}) => {
      className="w-full flex items-center justify-between h-16"
      style={{ maxWidth: "56rem", width: "56rem" }}
     >
-     <Link href="/">
+     <Link href="/" passHref={true}>
       <div
        className={`transition cursor-pointer select-none sm:w-auto mt-2 ${
-        (isDynamic && scrollCompletionRatio === 1) || isDynamic === false
-         ? "invert"
-         : ""
+        (isDynamic && isScrollComplete) || !isDynamic ? "invert" : ""
        }`}
       >
        <Image
@@ -81,7 +82,7 @@ export const PageHeader = (props: Props = {}) => {
       </div>
      </Link>
      <div className="block md:hidden">
-      <BurgerButton isOpen={false} onClick={() => {}} />
+      <BurgerButton isOpen={false} onClick={toggleMenuIsOpen} />
      </div>
      <div className="md:flex hidden">
       <div className="flex items-center space-x-6">{pageLinks}</div>

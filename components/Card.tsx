@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 type Props = {
  image: string
+ imageAlt: string
  author: string
  title: string
  date: string
@@ -14,7 +15,13 @@ export const Card = (props: Props) => {
   <div>
    <Link href={props.link}>
     {props.image && (
-     <Image src={props.image} height={160} width={320} objectFit="cover" />
+     <Image
+      src={props.image}
+      height={160}
+      width={320}
+      objectFit="cover"
+      alt={props.imageAlt}
+     />
     )}
    </Link>
    <div className="p-6">

@@ -9,7 +9,6 @@ import { ghostClient } from "../../ghostCMSClient"
 import Link from "next/link"
 import { BsArrowLeft } from "react-icons/bs"
 import { DateTime } from "luxon"
-import Image from "next/image"
 import { PostContent } from "../../components/PostContent"
 import { PageHeader } from "../../components/PageHeader"
 import { Footer } from "../../components/Footer"
@@ -22,23 +21,12 @@ const Post: NextPage<Props> = ({ post }) => {
    <Head>
     <title>Airshyre — {post.title}</title>
     <meta name="description" content="Airshyre's music website." />
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-     rel="preconnect"
-     href="https://fonts.gstatic.com"
-     crossOrigin="true"
-    />
-    <link
-     href="https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700;900&family=Josefin+Sans:wght@200;300;400;500;600;700&family=Quicksand:wght@700&display=swap"
-     rel="stylesheet"
-    />
    </Head>
    <div className="flex flex-col min-h-screen">
     <PageHeader />
     <div className="flex flex-grow flex-col items-center w-full">
      <div className="pt-8 sm:pt-16 pb-24 px-4 sm:px-16 mx-auto">
-      <Link href="/">
+      <Link href="/" passHref>
        <div className="flex items-center text-blue-600 hover:underline cursor-pointer hover:text-blue-700 active:text-blue-800">
         <BsArrowLeft className="mr-2" />
         <span>Go Back</span>

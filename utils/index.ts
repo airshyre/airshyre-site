@@ -1,3 +1,3 @@
 export * from './createNumberRangeTransform';
-export * from './createNumberTruncator'
+export * from './createNumberClamper'
 export * from './capitalize'

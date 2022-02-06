@@ -17,6 +17,7 @@ export const PostSummary = (post: PostOrPage) => {
        src={post.feature_image}
        objectFit="cover"
        className="rounded"
+       alt="Featured image."
       />
      </div>
     </a>

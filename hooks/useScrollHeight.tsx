@@ -1,8 +1,9 @@
-import React, { useRef } from "react"
+import React from "react"
 
 export const useScrollHeight = () => {
  const [scrollHeight, setScrollHeight] = React.useState<number>(0)
  React.useEffect(() => {
+  if (window === undefined) return
   const updateView = () => {
    setScrollHeight(window.scrollY)
   }

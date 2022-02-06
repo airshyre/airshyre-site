@@ -23,22 +23,12 @@ const Post: NextPage<Props> = ({ page }) => {
     <title>Airshyre — {page.title}</title>
     <meta name="description" content="Airshyre's music website." />
     <link rel="icon" href="/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-     rel="preconnect"
-     href="https://fonts.gstatic.com"
-     crossOrigin="true"
-    />
-    <link
-     href="https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700;900&family=Josefin+Sans:wght@200;300;400;500;600;700&family=Quicksand:wght@700&display=swap"
-     rel="stylesheet"
-    />
    </Head>
    <div className="flex flex-col min-h-screen">
     <PageHeader />
     <div className="flex flex-grow flex-col items-center w-full">
      <div className="pt-8 sm:pt-16 pb-24 px-4 sm:px-16 mx-auto">
-      <Link href="/">
+      <Link href="/" passHref>
        <div className="flex items-center text-blue-600 hover:underline cursor-pointer hover:text-blue-700 active:text-blue-800">
         <BsArrowLeft className="mr-2" />
         <span>Go Back</span>
@@ -67,12 +57,13 @@ const Post: NextPage<Props> = ({ page }) => {
  )
 }
 
+type PromiseResolvedType<T> = T extends Promise<infer R> ? R : never
+
 export const getStaticProps = async ({
  params,
-}: GetStaticPropsContext<{ pageID: string }>) => {
- const id = params?.pageID
- if (!id) throw new Error("Page Id is undefined!")
- const page = await ghostClient.pages.read({ id })
+}: GetStaticPropsContext<{ pageId: string; pageTitle: string }>) => {
+ if (!params?.pageId) throw new Error("Page Id is undefined!")
+ const page = await ghostClient.pages.read({ id: params.pageId })
  return {
   props: {
    page,
@@ -82,17 +73,17 @@ export const getStaticProps = async ({
 
 export async function getStaticPaths() {
  const pages = await ghostClient.pages.browse({ include: ["tags", "authors"] })
- const sortPagesUsingIndexTag = (unsortedPages: typeof pages) => {
+ const sortedPages = ((unsortedPages: typeof pages) => {
   const getIndex = (page: typeof pages[0]) => {
    const indexTag = page.tags?.find((tag) => tag.name?.includes("#index_"))
    const index = indexTag?.name?.split("_")[1]
    return Number(index)
   }
   return unsortedPages.sort((a, b) => getIndex(a) - getIndex(b))
- }
+ })(pages)
  return {
-  paths: sortPagesUsingIndexTag(pages).map((page) => ({
-   params: { pageID: page.id },
+  paths: sortedPages.map((page) => ({
+   params: { pageID: page.id, pageTitle: page.title },
   })),
   fallback: false,
  }
