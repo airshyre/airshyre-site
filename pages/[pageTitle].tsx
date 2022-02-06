@@ -57,13 +57,18 @@ const Post: NextPage<Props> = ({ page }) => {
  )
 }
 
-type PromiseResolvedType<T> = T extends Promise<infer R> ? R : never
-
 export const getStaticProps = async ({
  params,
-}: GetStaticPropsContext<{ pageId: string; pageTitle: string }>) => {
- if (!params?.pageId) throw new Error("Page Id is undefined!")
- const page = await ghostClient.pages.read({ id: params.pageId })
+}: GetStaticPropsContext<{ pageTitle: string }>) => {
+ const pages = await ghostClient.pages.browse({
+  fields: ["title", "id"],
+ })
+ const pageId = pages.find((page) => {
+  console.log(page.title?.toLowerCase(), params?.pageTitle)
+  return page.title?.toLowerCase() === params?.pageTitle
+ })?.id
+ if (pageId === undefined) throw new Error("Page not found!")
+ const page = await ghostClient.pages.read({ id: pageId })
  return {
   props: {
    page,
@@ -72,7 +77,10 @@ export const getStaticProps = async ({
 }
 
 export async function getStaticPaths() {
- const pages = await ghostClient.pages.browse({ include: ["tags", "authors"] })
+ const pages = await ghostClient.pages.browse({
+  include: ["tags"],
+  fields: ["title"],
+ })
  const sortedPages = ((unsortedPages: typeof pages) => {
   const getIndex = (page: typeof pages[0]) => {
    const indexTag = page.tags?.find((tag) => tag.name?.includes("#index_"))
@@ -83,7 +91,7 @@ export async function getStaticPaths() {
  })(pages)
  return {
   paths: sortedPages.map((page) => ({
-   params: { pageID: page.id, pageTitle: page.title },
+   params: { pageTitle: page.title?.toLowerCase() },
   })),
   fallback: false,
  }
