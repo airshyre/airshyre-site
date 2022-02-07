@@ -13,6 +13,7 @@ import Image from "next/image"
 // import { PostContent } from "../../components/PostContent"
 import { PageHeader } from "../components/PageHeader"
 import { Footer } from "../components/Footer"
+import { PostContent } from "../components/PostContent"
 
 type Props = InferGetServerSidePropsType<typeof getStaticProps>
 
@@ -22,35 +23,28 @@ const Post: NextPage<Props> = ({ page }) => {
    <Head>
     <title>Airshyre — {page.title}</title>
     <meta name="description" content="Airshyre's music website." />
-    <link rel="icon" href="/favicon.ico" />
    </Head>
    <div className="flex flex-col min-h-screen">
     <PageHeader />
-    <div className="flex flex-grow flex-col items-center w-full">
-     <div className="pt-8 sm:pt-16 pb-24 px-4 sm:px-16 mx-auto">
+    {/* <div className="flex flex-grow flex-col items-center justify-center w-full"> */}
+    <div className="flex flex-col items-center pt-8 sm:pt-16 pb-24 px-4 sm:px-16 mx-auto w-2/3">
+     <PostContent content={page}>
       <Link href="/" passHref>
        <div className="flex items-center text-blue-600 hover:underline cursor-pointer hover:text-blue-700 active:text-blue-800">
         <BsArrowLeft className="mr-2" />
         <span>Go Back</span>
        </div>
       </Link>
-      <div className="text-xs mt-8 text-gray-500 font-medium">
-       Posted by{" "}
-       <span className="text-gray-900">{page.authors?.[0] || "Airshyre"}</span>{" "}
-       on{" "}
-       <span className="text-gray-900">
-        {DateTime.fromISO(page.published_at || "").toFormat("MMMM dd, yyyy")}
-       </span>
+      <div className="flex flex-col items-center w-full">
+       <div className="text-5xl mt-4 font-bold w-min">{page.title}</div>
+       <div className="mt-4 text-gray-400 font-medium">
+        {page.meta_description}
+       </div>
+       <div className="mt-4 text-gray-400 font-medium">{page.featured}</div>
       </div>
-      <div className="text-5xl mt-4 font-bold">{page.title}</div>
-      <div className="mt-4 text-gray-400 font-medium">
-       {page.meta_description}
-      </div>
-      <div className="mt-4 text-gray-400 font-medium">{page.featured}</div>
-      <div dangerouslySetInnerHTML={{ __html: page.html || "" }} />
-      <div>{page.slug}</div>
-     </div>
+     </PostContent>
     </div>
+    {/* </div> */}
     <Footer />
    </div>
   </>

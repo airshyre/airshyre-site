@@ -45,7 +45,7 @@ const Post: NextPage<Props> = ({ post }) => {
        {post.meta_description}
       </div>
       <div className="mt-4 text-gray-400 font-medium">{post.featured}</div>
-      <PostContent {...post} />
+      <PostContent content={post} />
       <div>{post.slug}</div>
      </div>
     </div>
