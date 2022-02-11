@@ -18,7 +18,10 @@ import { PostsOrPages } from "@tryghost/content-api"
 
 type Props = { isDynamic?: boolean; pages?: PostsOrPages }
 
-const useStyles = (props: Props) => {
+const computeStyles = (props: Props) => {}
+
+export const PageHeader = (props: Props) => {
+  const toggleMenuIsOpen = useMenu((s) => s.toggleIsOpen)
   const scrollHeight = useScrollHeight()
   const scrollCompletionRatio = F.function.pipe(
     scrollHeight,
@@ -33,40 +36,26 @@ const useStyles = (props: Props) => {
     createNumberClamper([0, 1.5])
   )
 
-  const wrapperClassName = React.useMemo(() => {
-    let baseStyle =
-      "duration-150 px-4 sm:mt-0 sm:px-8 flex lg:mb-16 justify-center items-end w-full fixed z-50"
-    if ((props.isDynamic && isScrollComplete) || !props.isDynamic) {
-      baseStyle += "border-b border-gray-200 shadow"
-    }
-    if (props.isDynamic) {
-      baseStyle += "-mt-6"
-    }
-    return baseStyle
-  }, [isScrollComplete, props.isDynamic])
-
-  const wrapperStyle = React.useMemo(() => {
-    return {
-      paddingTop: props.isDynamic ? `${headerMargin}rem` : 0,
-      backgroundColor: rgba(
-        255,
-        255,
-        255,
-        props.isDynamic ? scrollCompletionRatio : 1
-      ),
-      color: darken(props.isDynamic ? scrollCompletionRatio : 1, "#fff"),
-    }
-  }, [headerMargin, props.isDynamic, scrollCompletionRatio])
-
-  return { wrapper: { className: wrapperClassName, style: wrapperStyle } }
-}
-
-export const PageHeader = (props: Props) => {
-  const toggleMenuIsOpen = useMenu((s) => s.toggleIsOpen)
-  const styles = useStyles(props)
   return (
     <div>
-      <div style={styles.wrapper.style} className={styles.wrapper.className}>
+      <div
+        className={"duration-150 px-4 sm:mt-0 sm:px-8 flex lg:mb-16 justify-center items-end w-full fixed z-50 ".concat(
+          (props.isDynamic && isScrollComplete) || !props.isDynamic
+            ? "border-b border-gray-200 shadow"
+            : "",
+          props.isDynamic ? "-mt-6" : ""
+        )}
+        style={{
+          paddingTop: props.isDynamic ? `${headerMargin}rem` : 0,
+          backgroundColor: rgba(
+            255,
+            255,
+            255,
+            props.isDynamic ? scrollCompletionRatio : 1
+          ),
+          color: darken(props.isDynamic ? scrollCompletionRatio : 1, "#fff"),
+        }}
+      >
         <div
           className="w-full flex items-center justify-between h-16"
           style={{ maxWidth: "56rem", width: "56rem" }}
