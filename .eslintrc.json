@@ -1,6 +1,6 @@
 {
- "extends": "next/core-web-vitals",
- "rules": {
+  "extends": "next/core-web-vitals",
+  "rules": {
     "no-implicit-coercion": ["error", { "disallowTemplateShorthand": true }]
-    }
+  }
 }

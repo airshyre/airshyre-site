@@ -1,3 +1,3 @@
-export * from './createNumberRangeTransform';
-export * from './createNumberClamper'
-export * from './capitalize'
+export * from "./createNumberRangeTransform"
+export * from "./createNumberClamper"
+export * from "./capitalize"

@@ -1,11 +1,14 @@
 module.exports = {
- content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
- theme: {
-  fontFamily: {
-   chivo: ["Chivo"],
-   quicksand: ["Quicksand"],
-   josefin: ["Josefin Sans"],
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    fontFamily: {
+      chivo: ["Chivo"],
+      quicksand: ["Quicksand"],
+      josefin: ["Josefin Sans"],
+    },
   },
- },
- plugins: [require("@tailwindcss/typography")],
+  plugins: [require("@tailwindcss/typography")],
 }
